@@ -1,28 +1,18 @@
 const fs = require('fs');
+const generatePage = require('./src/page-template.js');
 
-const profileDataArgs = process.argv.slice(2);
+const profileDataArgs = process.argv.slice(2, process.argv.length);
+const name = profileDataArgs[0];
+const github = profileDataArgs[1];// slice two arguement and 1 name 2 git
 
-const [name, github] = profileDataArgs;
+//const [name, github] = profileDataArgs;// assignm elements of an array to variable names in a single expression
 
-const generatePage = (name, github) => {
-  return `
-  <!DOCTYPE html> 
-  <html lang="en"> 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Portfolio Demo</title>
-  </head>
 
-  <body>
-    <h1>${name}</h1>
-    <h2><a href="https://github.com/${github}">Github</a></h2>
-  </body>
-  </html>`
-  ;
-};
-
+    //console.log(name, github);
+    //console.log(generatePage(name,github));
+/**The first argument is the file name that will be created, or the output file. 
+ * The second argument is the data that's being written: the HTML string template. 
+ * The third argument is the callback function that will handle any errors as well as the success message. */
 fs.writeFile('./index.html', generatePage(name, github), err => {
   if (err) throw new Error(err);
 
